@@ -2,12 +2,20 @@ import Link from 'next/link'
 function Webp() {
   return <div className="App">
     
-    <div className='title'>*.webp</div>
+    <div className='title'>
+      <Link href="/webp">
+        <a>WEBP</a>
+      </Link>
+      <Link href="/pag">
+        <a>CSR-PAG</a>
+      </Link>
+      <Link href="/pag2">
+        <a>SSR-PAG</a>
+      </Link>
+    </div>
     <header className="App-header">
       <div style={{margin:"20px 0"}}>
-        <Link href="/pag">
-          <a>PAG로 이동</a>
-        </Link>
+        
       </div>
 
       <div style={{display:'flex'}}>

@@ -7,17 +7,18 @@ const Pag = ()=>{
   useEffect(() => {
     console.log('Effect!')
     PAGInit().then(async (PAG) => {
-      // const buffer1 = await fetch("/summer_entry-fx.pag").then((response) => response.arrayBuffer());
-      fetch("/summer_entry-fx.pag").then((response) => response.arrayBuffer()).then(async buffer1=>{
-        const pagFile1 = await PAG.PAGFile.load(buffer1);
-        const canvas1 = document.getElementById('pag1');
-        canvas1.width = 360;
-        canvas1.height = 360;
-        const pagView1 = await PAG.PAGView.init(pagFile1, canvas1);
-        pagView1.setRepeatCount(0);
-        console.log(buffer1, canvas1, pagView1);
-        await pagView1.play();
-      })
+      const buffer1 = await fetch("/summer_entry-fx.pag").then((response) => response.arrayBuffer());
+      const pagFile1 = await PAG.PAGFile.load(buffer1);
+      const canvas1 = document.getElementById('pag1');
+      canvas1.width = 360;
+      canvas1.height = 360;
+      const pagView1 = await PAG.PAGView.init(pagFile1, canvas1);
+      pagView1.setRepeatCount(0);
+      console.log(buffer1, canvas1, pagView1);
+      await pagView1.play();
+      // fetch("/summer_entry-fx.pag").then((response) => response.arrayBuffer()).then(async buffer1=>{
+        
+      // })
       
 
       const buffer2 = await fetch("/summer-high.pag").then((response) => response.arrayBuffer());

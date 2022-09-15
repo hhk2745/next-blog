@@ -13,7 +13,8 @@
     "libpag": "^4.0.5-release.26",
     "next": "12.2.5",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-quill": "^2.0.0"
   },
   "devDependencies": {
     "@babel/node": "^7.18.10",

@@ -1,4 +1,7 @@
-import Link from 'next/link'
+import Link from 'next/link';
+import Image from "next/image";
+
+
 function Webp() {
   return <div className="App">
     
@@ -19,9 +22,9 @@ function Webp() {
       </div>
 
       <div style={{display:'flex'}}>
-        <img src="/summer_entry-fx.webp" />
-        <img src="/summer-high.webp" />
-        <img src="/summer-mid.webp" />
+        <Image src="/summer_entry-fx.webp" alt="a" width={500} height={500}/>
+        <Image src="/summer-high.webp" alt="b" width={500} height={500}/>
+        <Image src="/summer-mid.webp" alt="c" width={500} height={500}/>
       </div>
 
     </header>

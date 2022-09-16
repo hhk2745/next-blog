@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import ReactQuill, {Quill, QuillOptions} from 'react-quill';
+import React, { useState, useEffect, useRef } from 'react';
+import ReactQuill, {Quill, QuillOptions, UnprivilegedEditor} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+
+import ImageResize from 'quill-image-resize-module-react';
+
 
 
 // import 'react-quill/dist/quill.bubble.css';
@@ -8,7 +11,10 @@ import 'react-quill/dist/quill.snow.css';
 
 const Editor = ()=>{
   const [value, setValue] = useState('');
-  
+  const [readOnly, setReadOnly] = useState(false);
+  const quillRef = useRef(null);
+
+  Quill.register("modules/imageResize", ImageResize);
   const modules = {
     toolbar: [
       [{ header: '1' }, { header: '2' }, { font: [] }],
@@ -27,11 +33,18 @@ const Editor = ()=>{
       // toggle to add extra line breaks when pasting HTML:
       matchVisual: false,
     },
+    imageResize: {
+      parchment: Quill.import('parchment'),
+      modules: [ 'Resize', 'DisplaySize', 'Toolbar' ],
+      displayStyles: {
+        backgroundColor: 'black',
+        border: '5px solid red',
+        color: 'white'
+        // other camelCase styles for size display
+    }
+      // See optional "config" below
+    }
   }
-  /*
-   * Quill editor formats
-   * See https://quilljs.com/docs/formats/
-   */
   const formats = [
     'header',
     'font',
@@ -49,14 +62,29 @@ const Editor = ()=>{
     'video',
   ]
 
-  useEffect(()=>{
-    console.log(value);
-  }, [value])
-
+  useEffect(() => {
+    // Quill.register('modules/imageResize', ImageResize);
+  }, []);
+  const editorFocus = (selection, source, editor)=>{
+    console.log(selection, source, editor);
+  }
+  const editorChange = (value, delta, source, editor)=>{
+    setValue(value);
+  }
   return <>
     <div className='editorContainer'>
       <div className='quillWrap'>
-        <ReactQuill theme="snow" value={value} onChange={setValue} modules={modules} formats={formats}/>
+        <ReactQuill theme="snow" 
+        value={value || ""}
+        onChange={editorChange} 
+        onFocus={editorFocus}
+        modules={modules}
+        formats={formats}
+          readOnly={readOnly}
+          className={"test"}
+          ref={quillRef}
+          preserveWhitespace
+        />
       </div>
       <div className='viewWrap'>
         <div>

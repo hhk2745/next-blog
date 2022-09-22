@@ -1,53 +1,68 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 
 // import { PAGInit } from 'libpag';
 import Link from 'next/link';
 // import { Blob } from 'blob-polyfill';
 
 
-export async function getServerSideProps({res, response}) {
-  // console.log(res, response);
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
+// export async function getStaticProps({res, response}) {
+//   // console.log(res, response);
+//   // res.setHeader(
+//   //   'Cache-Control',
+//   //   'public, s-maxage=10, stale-while-revalidate=59'
+//   // )
 
-  // Fetch data from external API
-  const pagLike = await fetch(`https://image.dallalive.com/test/like.pag`);
-  const pagSnowman = await fetch(`https://image.dallalive.com/test/snowman.pag`);
-  const bufferLike = await pagLike.arrayBuffer();
-  const bufferSnowman = await pagSnowman.arrayBuffer();
-  const like = JSON.stringify(Array.from(new Uint8Array(bufferLike)));
-  const snowman = JSON.stringify(Array.from(new Uint8Array(bufferSnowman)));
-  return { props: {like, snowman} }
-}
+//   // Fetch data from external API
+  
+//   // return { props: {bufferJson1, bufferJson2} }/
+//   // return { props: {bufferJson1, bufferJson2, bufferJson3} }
+// }
 
-const Pag2 = (props)=>{
+const Pag2 = ({bufferJson1, bufferJson2, bufferJson3})=>{
+
+  const canvas1 = useRef(null);
+  const canvas2 = useRef(null);
+  const canvas3 = useRef(null);
+  
   // console.log(`@@`, props);
   useEffect(()=>{
     (import('libpag')).then(res=>res)
     .then(({PAGInit})=>{
       PAGInit().then(async (PAG) => {
-        const like = new Uint8Array(JSON.parse(props.like)).buffer;
-        const snowman = new Uint8Array(JSON.parse(props.snowman)).buffer;
-        const fileLike = await PAG.PAGFile.load(like);
-        const fileSnowman = await PAG.PAGFile.load(snowman);
-        const canvasLike = document.getElementById('pag1');
-        const canvasSnowman = document.getElementById('pag2');
-        if(canvasLike){
-          canvasLike.width = 300;
-          canvasLike.height = 300;
-          const pagView = await PAG.PAGView.init(fileLike, canvasLike);
-          pagView.setRepeatCount(0);
-          await pagView.play();
-        }
-        if(canvasSnowman){
-          canvasSnowman.width = 300;
-          canvasSnowman.height = 300;
-          const pagView = await PAG.PAGView.init(fileSnowman, canvasSnowman);
-          pagView.setRepeatCount(0);
-          await pagView.play();
-        }
+
+        const fetch1 = await fetch(`https://image.dallalive.com/test/summer_entry-fx.pag`);
+        const fetch2 = await fetch(`https://image.dallalive.com/test/summer-high.pag`);
+        const fetch3 = await fetch(`https://image.dallalive.com/test/summer-mid.pag`);
+        const buffer1 = await fetch1.arrayBuffer();
+        const buffer2 = await fetch2.arrayBuffer();
+        const buffer3 = await fetch3.arrayBuffer();
+        const pag1 = await PAG.PAGFile.load(buffer1);
+        const pag2 = await PAG.PAGFile.load(buffer2);
+        const pag3 = await PAG.PAGFile.load(buffer3);
+
+        canvas1.current.width = 300;
+        canvas1.current.height = 300;
+        const pagView1 = await PAG.PAGView.init(pag1, canvas1.current);
+        pagView1.setRepeatCount(0);
+        await pagView1.play();
+        
+        canvas2.current.width = 300;
+        canvas2.current.height = 300;
+        const pagView2 = await PAG.PAGView.init(pag2, canvas2.current);
+        pagView2.setRepeatCount(0);
+        await pagView2.play();
+
+        canvas3.current.width = 300;
+        canvas3.current.height = 300;
+        const pagView3 = await PAG.PAGView.init(pag3, canvas3.current);
+        pagView3.setRepeatCount(0);
+        await pagView3.play();
+
+        // canvasSnowman.width = 300;
+        // canvasSnowman.height = 300;
+        // const pagView = await PAG.PAGView.init(pag2, canvasSnowman);
+        // pagView.setRepeatCount(0);
+        // await pagView.play();
       });
     });
   })
@@ -67,9 +82,9 @@ const Pag2 = (props)=>{
 
     <header className="App-header">
       <div style={{display:'flex'}}>
-        <canvas id="pag1"></canvas>
-        <canvas id="pag2"></canvas>
-        <canvas id="pag3"></canvas>
+        <canvas ref={canvas1}></canvas>
+        <canvas ref={canvas2}></canvas>
+        <canvas ref={canvas3}></canvas>
       </div>
 
     </header>

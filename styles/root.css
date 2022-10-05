@@ -1,0 +1,27 @@
+:root {
+  --font-color: #f9f9f9;
+  --background-color: #012853;
+  --point-color: #ffc56d;
+}
+
+body {
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+a {
+  color: var(--font-color);
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+}

@@ -1,0 +1,34 @@
+.editorContainer{
+  max-width: 980px;
+  margin: 0 auto;
+  margin-top: 30px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.editorContainer > div{
+  margin-top: 50px;
+}
+
+.viewWrap {
+  display: flex;
+  /* justify-content: space-around; */
+}
+
+.viewWrap > div{
+  max-width: 500px;
+  /* overflow:hidden; */
+  /* text-overflow:ellipsis; */
+  /* white-space:nowrap; */
+  background-color: #a52a2a0c;
+  margin-right: 10px;
+}
+.viewWrap .title{
+  color: #a52a2a;
+  /* background-color: antiquewhite; */
+}
+
+.viewWrap p{
+  padding: 10px;
+}

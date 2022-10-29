@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Hamburger, Icon, Logo, Menus, NavBar } from "./Header";
+import ReactHookForm from "./ReactHookForm";
 
 const Sample = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -45,6 +46,8 @@ const Sample = () => {
           </a>
         </Hamburger>
       </NavBar>
+
+      <ReactHookForm />
     </>
   );
 };

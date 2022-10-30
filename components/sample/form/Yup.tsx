@@ -23,7 +23,9 @@ const Yup = () => {
 
       <div className="article">
         <form onSubmit={handleSubmit((d) => console.log(d))}>
+          <label>Name</label>
           <input {...register("name")} />
+          <label>Age</label>
           <input type="number" {...register("age")} />
           <input type="submit" />
         </form>

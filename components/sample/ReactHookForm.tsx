@@ -21,7 +21,9 @@ const ReactHookForm = () => {
           </li>
         ))}
       </ul>
-      {render.reactNode}
+      <div className='sampleWrap'>
+        {render.reactNode}
+      </div>
     </>
   );
 };
